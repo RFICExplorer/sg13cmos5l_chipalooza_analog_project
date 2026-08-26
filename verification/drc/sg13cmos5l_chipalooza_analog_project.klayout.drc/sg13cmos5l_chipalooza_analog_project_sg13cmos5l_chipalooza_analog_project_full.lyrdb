@@ -26,8 +26,50 @@
    </categories>
   </category>
  <category>
-   <name>TGO.f</name>
-   <description>5.7. TGO.f : Min. ThickGateOx width: 0.86 µm</description>
+   <name>pSD.c1</name>
+   <description>5.10. pSD.c1 Min. pSD enclosure of P+Activ in PWell is 0.03 um</description>
+   <categories>
+   </categories>
+  </category>
+ <category>
+   <name>LU.b</name>
+   <description>7.2. LU.b : Max. space from any portion of N+Activ inside PWell to an pSD-PWell tie is 20.0 um</description>
+   <categories>
+   </categories>
+  </category>
+ <category>
+   <name>Act.a</name>
+   <description>5.5. Act.a : Min. Activ width : 0.15 µm</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>Act.b</name>
+   <description>5.5. Act.b : Min. Activ (drawing + filler) space or notch: 0.21 µm.</description>
+   <categories>
+   </categories>
+  </category>
+ <category>
+   <name>NW.b</name>
+   <description>5.1.NW.b : Min. NWell space or notch (same net). NWell regions separated by less than this value will be merged. is 0.62 um</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>NW.b1</name>
+   <description>5.1.NW.b1 : Min. PWell width between NWell regions (different net)  is 1.8 um</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>NW.f1</name>
+   <description>5.1.NW.f1 : Min. NWell space to substrate tie in P+Activ inside ThickGateOx = 0.62 um</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>NW.f1.digibnd</name>
+   <description>5.1.NW.f1.digibnd : Min. NWell space to substrate tie in P+Activ inside ThickGateOx (Inside DigiBnd) = 0.24 um</description>
    <categories>
    </categories>
   </category>
@@ -56,14 +98,8 @@
    </categories>
   </category>
  <category>
-   <name>Act.a</name>
-   <description>5.5. Act.a : Min. Activ width : 0.15 µm</description>
-   <categories>
-   </categories>
-  </category>
-  <category>
-   <name>Act.b</name>
-   <description>5.5. Act.b : Min. Activ (drawing + filler) space or notch: 0.21 µm.</description>
+   <name>TGO.f</name>
+   <description>5.7. TGO.f : Min. ThickGateOx width: 0.86 µm</description>
    <categories>
    </categories>
   </category>
@@ -122,42 +158,6 @@
    </categories>
   </category>
  <category>
-   <name>LU.b</name>
-   <description>7.2. LU.b : Max. space from any portion of N+Activ inside PWell to an pSD-PWell tie is 20.0 um</description>
-   <categories>
-   </categories>
-  </category>
- <category>
-   <name>pSD.c1</name>
-   <description>5.10. pSD.c1 Min. pSD enclosure of P+Activ in PWell is 0.03 um</description>
-   <categories>
-   </categories>
-  </category>
- <category>
-   <name>NW.b</name>
-   <description>5.1.NW.b : Min. NWell space or notch (same net). NWell regions separated by less than this value will be merged. is 0.62 um</description>
-   <categories>
-   </categories>
-  </category>
-  <category>
-   <name>NW.b1</name>
-   <description>5.1.NW.b1 : Min. PWell width between NWell regions (different net)  is 1.8 um</description>
-   <categories>
-   </categories>
-  </category>
-  <category>
-   <name>NW.f1</name>
-   <description>5.1.NW.f1 : Min. NWell space to substrate tie in P+Activ inside ThickGateOx = 0.62 um</description>
-   <categories>
-   </categories>
-  </category>
-  <category>
-   <name>NW.f1.digibnd</name>
-   <description>5.1.NW.f1.digibnd : Min. NWell space to substrate tie in P+Activ inside ThickGateOx (Inside DigiBnd) = 0.24 um</description>
-   <categories>
-   </categories>
-  </category>
- <category>
    <name>AFil.c1</name>
    <description>5.6. AFil.c1 Min. Activ:filler space to Activ is 0.42 um</description>
    <categories>
@@ -194,50 +194,38 @@
    </categories>
   </category>
  <category>
-   <name>LBE.a</name>
-   <description>9.1. LBE.a: Min. LBE width: 100.0 µm</description>
+   <name>Gat.a</name>
+   <description>5.8. Gat.a : Min. GatPoly width: 0.13 µm</description>
    <categories>
    </categories>
   </category>
   <category>
-   <name>LBE.b</name>
-   <description>9.1. LBE.b: Max. LBE width: 1500.0 µm.</description>
+   <name>Gat.b</name>
+   <description>5.8. Gat.b : Min. GatPoly (drawing + filler) space or notch: 0.18 µm.</description>
    <categories>
    </categories>
   </category>
   <category>
-   <name>LBE.b1</name>
-   <description>9.1. LBE.b1: Max. LBE area (µm²): 250000.0 .um</description>
+   <name>Gat.d</name>
+   <description>5.8. Gat.d :Min. GatPoly space to Activ: 0.07 µm.</description>
    <categories>
    </categories>
   </category>
   <category>
-   <name>LBE.c</name>
-   <description>9.1. LBE.c: Min. LBE space or notch: 100.0 µm</description>
+   <name>Gat.a1</name>
+   <description>5.8. Gat.a1 Min. GatPoly width for channel length of 1.2V NFET is 0.13 um</description>
    <categories>
    </categories>
   </category>
   <category>
-   <name>LBE.d</name>
-   <description>9.1. LBE.d: Min. LBE space to inner edge of EdgeSeal: 150.0 µm</description>
+   <name>Gat.a2</name>
+   <description>5.8. Gat.a2 Min. GatPoly width for channel length of 1.2V PFET is 0.13 um</description>
    <categories>
    </categories>
   </category>
   <category>
-   <name>LBE.h</name>
-   <description>9.1. LBE.h: No LBE ring allowed.</description>
-   <categories>
-   </categories>
-  </category>
- <category>
-   <name>TM1.a</name>
-   <description>5.22. TM1.a: Min. TopMetal1 width: 1.64 μm.</description>
-   <categories>
-   </categories>
-  </category>
-  <category>
-   <name>TM1.b</name>
-   <description>5.22. TM1.b: Min. TopMetal1 (drawing + filler) space or notch: 1.64 μm.</description>
+   <name>Gat.g</name>
+   <description>5.8. Gat.g Min. GatPoly width for 45-degree bent shapes if the bend GatPoly,length is &gt; 0.39 µm is 0.16 um</description>
    <categories>
    </categories>
   </category>
@@ -278,38 +266,50 @@
    </categories>
   </category>
  <category>
-   <name>Gat.a</name>
-   <description>5.8. Gat.a : Min. GatPoly width: 0.13 µm</description>
+   <name>TM1.a</name>
+   <description>5.22. TM1.a: Min. TopMetal1 width: 1.64 μm.</description>
    <categories>
    </categories>
   </category>
   <category>
-   <name>Gat.b</name>
-   <description>5.8. Gat.b : Min. GatPoly (drawing + filler) space or notch: 0.18 µm.</description>
+   <name>TM1.b</name>
+   <description>5.22. TM1.b: Min. TopMetal1 (drawing + filler) space or notch: 1.64 μm.</description>
+   <categories>
+   </categories>
+  </category>
+ <category>
+   <name>LBE.a</name>
+   <description>9.1. LBE.a: Min. LBE width: 100.0 µm</description>
    <categories>
    </categories>
   </category>
   <category>
-   <name>Gat.d</name>
-   <description>5.8. Gat.d :Min. GatPoly space to Activ: 0.07 µm.</description>
+   <name>LBE.b</name>
+   <description>9.1. LBE.b: Max. LBE width: 1500.0 µm.</description>
    <categories>
    </categories>
   </category>
   <category>
-   <name>Gat.a1</name>
-   <description>5.8. Gat.a1 Min. GatPoly width for channel length of 1.2V NFET is 0.13 um</description>
+   <name>LBE.b1</name>
+   <description>9.1. LBE.b1: Max. LBE area (µm²): 250000.0 .um</description>
    <categories>
    </categories>
   </category>
   <category>
-   <name>Gat.a2</name>
-   <description>5.8. Gat.a2 Min. GatPoly width for channel length of 1.2V PFET is 0.13 um</description>
+   <name>LBE.c</name>
+   <description>9.1. LBE.c: Min. LBE space or notch: 100.0 µm</description>
    <categories>
    </categories>
   </category>
   <category>
-   <name>Gat.g</name>
-   <description>5.8. Gat.g Min. GatPoly width for 45-degree bent shapes if the bend GatPoly,length is &gt; 0.39 µm is 0.16 um</description>
+   <name>LBE.d</name>
+   <description>9.1. LBE.d: Min. LBE space to inner edge of EdgeSeal: 150.0 µm</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>LBE.h</name>
+   <description>9.1. LBE.h: No LBE ring allowed.</description>
    <categories>
    </categories>
   </category>
@@ -698,6 +698,18 @@
    </categories>
   </category>
  <category>
+   <name>TM1Fil.c</name>
+   <description>5.23. TM1Fil.c : Min. TopMetal1:filler space to TopMetal1 is 3.0 um</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>TM1Fil.a1</name>
+   <description>5.23. TM1Fil.a1 : Max. TopMetal1:filler width is 10.0 um</description>
+   <categories>
+   </categories>
+  </category>
+ <category>
    <name>forbidden.biwind</name>
    <description>forbidden.biwind : 3.2. biwind is forbidden in designs submitted for all 0.13 um techs.</description>
    <categories>
@@ -820,18 +832,6 @@
   <category>
    <name>CMOS5L.FORB.Vmim</name>
    <description>CMOS5L.FORB.Vmim : 3.2. Vmim layer is prohibited in CMOS5L (M1-M4-TM1 stack).</description>
-   <categories>
-   </categories>
-  </category>
- <category>
-   <name>TM1Fil.c</name>
-   <description>5.23. TM1Fil.c : Min. TopMetal1:filler space to TopMetal1 is 3.0 um</description>
-   <categories>
-   </categories>
-  </category>
-  <category>
-   <name>TM1Fil.a1</name>
-   <description>5.23. TM1Fil.a1 : Max. TopMetal1:filler width is 10.0 um</description>
    <categories>
    </categories>
   </category>

@@ -1,11 +1,12 @@
 * NGSPICE file created from sg13cmos5l_chipalooza_analog_project.ext - technology: ihp-sg13cmos5l
 
-.subckt sg13cmos5l_chipalooza_analog_project analog_0 analog_1 analog_2 clk ena rst_n ui_in[0]
-+ ui_in[1] ui_in[2] ui_in[3] ui_in[4] ui_in[5] ui_in[6] ui_in[7] uio_in[0] uio_in[1]
-+ uio_in[2] uio_in[3] uio_in[4] uio_in[5] uio_in[6] uio_in[7] uio_oe[0] uio_oe[1]
-+ uio_oe[2] uio_oe[3] uio_oe[4] uio_oe[5] uio_oe[6] uio_oe[7] uio_out[0] uio_out[1]
-+ uio_out[2] uio_out[3] uio_out[4] uio_out[5] uio_out[6] uio_out[7] uo_out[0] uo_out[1]
-+ uo_out[2] uo_out[3] uo_out[4] uo_out[5] uo_out[6] uo_out[7] VAPWR VGND VPWR
+.subckt sg13cmos5l_chipalooza_analog_project analog_0 analog_1 analog_2 clk ena rst_n
++ ui_in[0] ui_in[1] ui_in[2] ui_in[3] ui_in[4] ui_in[5] ui_in[6] ui_in[7] uio_in[0]
++ uio_in[1] uio_in[2] uio_in[3] uio_in[4] uio_in[5] uio_in[6] uio_in[7] uio_oe[0]
++ uio_oe[1] uio_oe[2] uio_oe[3] uio_oe[4] uio_oe[5] uio_oe[6] uio_oe[7] uio_out[0]
++ uio_out[1] uio_out[2] uio_out[3] uio_out[4] uio_out[5] uio_out[6] uio_out[7] uo_out[0]
++ uo_out[1] uo_out[2] uo_out[3] uo_out[4] uo_out[5] uo_out[6] uo_out[7] VAPWR VGND
++ VPWR
 X0 VAPWR VAPWR VAPWR VAPWR sg13_lv_pmos ad=1.14p pd=6.38u as=0.28875n ps=0.61464m w=6u l=1u
 X1 VGND VGND VGND VGND sg13_lv_nmos ad=0.34p pd=2.68u as=0.38482n ps=0.65456m w=1u l=1u
 X2 analog_1 analog_0 VGND VGND sg13_lv_nmos ad=0.19p pd=1.38u as=0.19p ps=1.38u w=1u l=1u
