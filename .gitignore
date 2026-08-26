@@ -13,11 +13,6 @@ __pycache__/
 runs/
 backups/
 sim_build/
-/tutorial/.quarto/
-/tutorial/_site/
-/tutorial/index.pdf
-/tutorial/fig/*.pdf
-/flow/final
 /schematic/xschem/simulations
 /testbenches/xschem/simulations
 /macros/inverter/verification/cace/_runs
