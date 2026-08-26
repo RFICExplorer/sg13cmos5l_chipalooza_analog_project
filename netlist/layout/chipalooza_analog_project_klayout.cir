@@ -1,12 +1,12 @@
-* Extracted by KLayout with SG13CMOS5L LVS runset on : 02/08/2026 23:50
+* Extracted by KLayout with SG13CMOS5L LVS runset on : 26/08/2026 17:12
 
 .SUBCKT chipalooza_analog_project VAPWR VGND VPWR analog_0 analog_1 analog_2
 + ui_in[0]
 X$14 VGND VAPWR analog_2 ui_in[0] inverter
 X$15 VGND VAPWR analog_1 analog_0 inverter
-M$1 VGND VAPWR VGND VGND sg13_lv_pmos L=10u W=10u AS=3.4p AD=3.4p PS=20.68u
+M$1 VGND VPWR VGND VGND sg13_lv_pmos L=10u W=10u AS=3.4p AD=3.4p PS=20.68u
 + PD=20.68u rfmode=0
-M$2 VGND VPWR VGND VGND sg13_lv_pmos L=10u W=10u AS=3.4p AD=3.4p PS=20.68u
+M$2 VGND VAPWR VGND VGND sg13_lv_pmos L=10u W=10u AS=3.4p AD=3.4p PS=20.68u
 + PD=20.68u rfmode=0
 .ENDS chipalooza_analog_project
 
