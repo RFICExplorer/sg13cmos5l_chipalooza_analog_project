@@ -8,7 +8,7 @@
   <em>Render of the ihp-sg13cmos5l inverter layout.</em>
 </p>
 
-This is the analog example **sub-macro** of the Chipalooza 2026 analog project template: the unit `inverter` cell with its complete flow (schematic → simulation → layout → DRC/LVS/PEX → post-layout simulation → characterization). The hand-drawn top level that embeds it, including the chip-level power straps and the PR boundary, lives one directory up in [`chipalooza_analog_project`](../../README.md).
+This is the analog example **sub-macro** of the Chipalooza analog project template: the unit `inverter` cell with its complete flow (schematic → simulation → layout → DRC/LVS/PEX → post-layout simulation → characterization). The hand-drawn top level that embeds it, including the chip-level power straps and the PR boundary, lives one directory up in [`chipalooza_analog_project`](../../README.md).
 
 Everything here runs inside the [IIC-OSIC-TOOLS](https://github.com/iic-jku/IIC-OSIC-TOOLS) container, which ships every tool this macro needs: Xschem, ngspice, Magic, Netgen, KLayout, CACE, and the `sak-*` helper scripts.
 

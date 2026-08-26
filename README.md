@@ -13,18 +13,33 @@ This is the analog-on-top example project for Chipalooza 2026: the top level `ch
 The whole flow runs inside the [IIC-OSIC-TOOLS](https://github.com/iic-jku/IIC-OSIC-TOOLS) container, which ships every tool it needs: Xschem, ngspice, Magic, Netgen, KLayout, CACE, and the `sak-*` helper scripts.
 
 > [!IMPORTANT]
-> You must rename `chipalooza_analog_project` to a unique name starting with `chipalooza_` and edit `submission.yaml` in the repository root.
+> You must rename `chipalooza_analog_project` to a unique name and fill in [`submission.yaml`](submission.yaml) in the repository root before you submit. `top-cell` there has to match `TOP` in the [`Makefile`](Makefile).
 
-For an analog-on-top submission, `submission.yaml` needs your macro name and the analog artifact paths. Because the submission macro is the **top level** of this repository, the paths point at the top-level `final/` folder:
+[`submission.yaml`](submission.yaml) describes the submission and is what the precheck reads. It is filled in for this example and carries these fields:
+
+| Field | Meaning |
+| --- | --- |
+| `project-name` | free-text name of the project |
+| `top-cell` | the macro's cell name, unique across all submissions |
+| `team-members` | one list entry per person |
+| `slot-size` | `tiny` (200 µm × 200 µm), `small` (500 µm × 200 µm) or `large` (500 µm × 415 µm) |
+| `analog-pins` | how many of `analog_0` … `analog_2` the macro uses, `0`–`3` |
+| `short-description` | one line |
+| `long-description` | the project documentation, Markdown in a YAML block scalar |
+| `gds-path`, `lef-path`, `header-path` | globs for the three deliverables, each must match **exactly one** file |
+
+Because the submission macro is the **top level** of this repository rather than a folder under `macros/`, the three paths are relative to the repository root:
 
 ```yaml
-top-cell: "chipalooza_yourname"
-slot-size: tiny # this example fits the tiny slot
-analog-pins: 3  # number of used analog pins (0-3)
 gds-path: final/gds/*.gds
 lef-path: final/lef/*.lef
 header-path: final/vh/*.vh
 ```
+
+They are produced by `make build-top`, so run it once before submitting.
+
+> [!WARNING]
+> The precheck this template descends from rejects `analog-pins` greater than `0` unless `slot-size` is `small`, even though a `tiny` analog floorplan template is shipped and this example uses it (`tiny` with three analog pins). Confirm the rule with the organizers before you rely on a tiny analog slot.
 
 To rename the project, change `TOP` in the [`Makefile`](Makefile) — every target derives its file names from it, so nothing else in the Makefile has to be touched — and rename the files that carry the name:
 
@@ -33,7 +48,7 @@ To rename the project, change `TOP` in the [`Makefile`](Makefile) — every targ
 - `testbenches/xschem/chipalooza_analog_project_tb_tran.sch`
 - `testbenches/xschem/plot_simulations/plot_chipalooza_analog_project.py`
 
-Then search and replace the remaining occurrences inside those files — Xschem schematics and the plot script are plain text. The ones that matter are the DUT symbol instances and the `.include` of the PEX netlist in the testbench, and the raw file names in the plot script.
+Then search and replace the remaining occurrences inside those files — Xschem schematics and the plot script are plain text. The ones that matter are the DUT symbol instances and the `.include` of the PEX netlist in the testbench, and the raw file names in the plot script. Finally set `top-cell` in [`submission.yaml`](submission.yaml) to the same name.
 
 
 ## Directory Structure
@@ -102,7 +117,8 @@ Then search and replace the remaining occurrences inside those files — Xschem 
 │     ├─ 📁 <cell>.klayout.lvs/
 │     └─ 📁 <cell>.magic.lvs/
 ├─ Makefile
-└─ README.md
+├─ README.md
+└─ submission.yaml                             # submission description read by the precheck
 ```
 
 </details>
@@ -123,7 +139,7 @@ This project embeds the `inverter` sub-macro in `macros/inverter/`, and each lev
 Start your top-level layout from one of the GDS templates in `floorplan/`. They define the slot geometry and all pin positions:
 
 - **Signal pins** on Metal3 (west edge): the standard chip interface (`clk`, `ena`, `rst_n`, `ui_in[7:0]`, `uo_out[7:0]`, `uio_*[7:0]`) that connects your project to the eFPGA.
-- **Analog pins** (`analog_0` … `analog_2`) on Metal2 (south edge) — only in the `*_analog` variants. If you use them, you must use the `small` or `tiny` slot and declare the count in `submission.yaml` (`analog-pins:`).
+- **Analog pins** (`analog_0` … `analog_2`) on Metal2 (south edge) — only in the `*_analog` variants. Declare how many you use in [`submission.yaml`](submission.yaml) (`analog-pins:`), and see the warning above about which slot sizes may carry them.
 - **Power straps** on Metal4, running **vertically all the way from bottom to top**: `VPWR`, `VGND`, and optionally `VAPWR` (analog supply). These vertical straps are required for the power-grid integration. Do not shorten, move, or rename them.
 - **PR boundary** on layer 189 (`prBoundary`), the box the chip flow derives the macro bounding box from, see [PR Boundary Check](#pr-boundary-check).
 
@@ -213,8 +229,8 @@ All `simulations/` folders are generated and git-ignored.
 ### Which File Is Used
 
 - The Makefile targets always name one explicitly with `--rcfile`, so a target behaves the same from any working directory.
-- Inside the container, [`.designinit`](.designinit) wraps `xschem` so that a plain `xschem <file>` from anywhere uses `schematic/xschem/xschemrc`.
-- Starting Xschem from within one of the five folders picks up that folder's file, which is the normal interactive case.
+- Starting Xschem from within one of the five folders picks up that folder's file, which is the normal interactive case. `make open` does the same, because it starts Xschem in the file's own directory.
+- Started from anywhere else, Xschem falls back to `~/.xschem/xschemrc` and sees neither the project symbols nor the pinned `netlist_dir`. Pass the file explicitly then, for example `xschem --rcfile schematic/xschem/xschemrc <file>`.
 
 
 ## Verification Scripts (`sak-*`)
@@ -228,7 +244,7 @@ The DRC, LVS, PEX, render and file-browser targets call the `sak-*` Swiss-Army-K
 - `sak-render.py` — renders a layout GDS to PNG
 - `sak-open.py` — the file browser behind `make open`
 
-They read `PDK_ROOT`, `PDK`, `PDKPATH` and `STD_CELL_LIBRARY` from the environment. The container exports `PDK_ROOT`, and [`.designinit`](.designinit) exports the other three. The container sources `.designinit` when a shell starts in the design root; if you end up in a shell that has not picked it up, source it by hand before running any target:
+They read `PDK_ROOT`, `PDK`, `PDKPATH` and `STD_CELL_LIBRARY` from the environment. The container exports `PDK_ROOT`, and [`.designinit`](.designinit) exports the other three. IIC-OSIC-TOOLS sources `$DESIGNS/.designinit` at start-up, so the file is picked up automatically when this repository is the mounted design directory. If the repository sits in a subfolder of `$DESIGNS`, or you are in a shell that was not started that way, source it by hand before running any target:
 
 ```sh
 source .designinit
@@ -312,7 +328,6 @@ The sub-macros have no such target: the box is only needed by the cell the chip 
 > Most of the generated outputs are committed in this repository, so `make clean` leaves a large deletion set in `git status`. Run `git restore .` to get them back if you did not mean to remove them.
 
 
-## Where to Go Next
+## License
 
-- The Chipalooza 2026 organizer documentation — prerequisites, slot sizes, submission checklist, and precheck.
-- [`macros/inverter/README.md`](macros/inverter/README.md) — the complete analog macro flow reference (all Makefile targets, DRC levels, PEX modes, the PEX symbol convention, CACE).
+Licensed under the **Solderpad Hardware License v2.1** (`Apache-2.0 WITH SHL-2.1`), see [`LICENSE`](LICENSE).
