@@ -5,6 +5,9 @@
 > [!IMPORTANT]
 > This repository requires the [IIC-OSIC-TOOLS](https://github.com/iic-jku/IIC-OSIC-TOOLS) container with tag `2026.08` or later.
 
+> [!TIP]
+> New to this flow? Start with the [**ihp-sg13cmos5l AMS chip design tutorial**](https://iic-jku.github.io/ihp-sg13cmos5l-ams-chip-template/index.html). This project follows the same analog flow and directory conventions, so the tutorial applies here as well.
+
 <p align="center">
   <a href="render/img/chipalooza_analog_project_white.png">
     <img src="render/img/chipalooza_analog_project_white.png" alt="Render of the ihp-sg13cmos5l chipalooza_analog_project `tiny` layout (200um x 200um)" width=70%>
