@@ -1,4 +1,4 @@
-module chipalooza_analog_project (
+module sg13cmos5l_chipalooza_analog_project (
 `ifdef USE_POWER_PINS
     inout VAPWR,
     inout VGND,

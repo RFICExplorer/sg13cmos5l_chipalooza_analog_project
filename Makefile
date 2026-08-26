@@ -4,7 +4,7 @@
 MAKEFILE_DIR := $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 
 # Variables
-TOP = chipalooza_analog_project
+TOP = sg13cmos5l_chipalooza_analog_project
 
 .DEFAULT_GOAL := help
 

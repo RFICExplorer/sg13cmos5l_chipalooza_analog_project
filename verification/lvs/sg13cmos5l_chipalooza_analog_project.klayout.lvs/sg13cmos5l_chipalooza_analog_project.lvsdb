@@ -1,6 +1,6 @@
 #%lvsdb-klayout
 J(
- W(chipalooza_analog_project)
+ W(sg13cmos5l_chipalooza_analog_project)
  U(0.001)
  L(l6 '6/0')
  L(l22)
@@ -4735,7 +4735,7 @@ J(
    T(B 2)
   )
  )
- X(chipalooza_analog_project
+ X(sg13cmos5l_chipalooza_analog_project
   R((0 0) (200000 200000))
   N(1 I(VGND)
    R(l6 (88970 181220) (160 160))
@@ -6530,7 +6530,7 @@ H(
    T(B 1)
   )
  )
- X(CHIPALOOZA_ANALOG_PROJECT
+ X(SG13CMOS5L_CHIPALOOZA_ANALOG_PROJECT
   N(1 I(VPWR))
   N(2 I(VAPWR))
   N(3 I(VGND))
@@ -6588,7 +6588,7 @@ H(
  )
 )
 Z(
- X(chipalooza_analog_project CHIPALOOZA_ANALOG_PROJECT 1
+ X(sg13cmos5l_chipalooza_analog_project SG13CMOS5L_CHIPALOOZA_ANALOG_PROJECT 1
   Z(
    N(5 2 1)
    N(1 3 1)
