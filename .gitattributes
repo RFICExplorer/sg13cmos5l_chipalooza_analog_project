@@ -221,3 +221,10 @@ Procfile          text
 
 # Prevents massive diffs from built files
 dist/*            binary
+
+# EDA binary formats (layouts and ngspice raw files)
+*.gds             binary
+*.gds.gz          binary
+*.oas             binary
+*.oas.gz          binary
+*.raw             binary
