@@ -1,5 +1,10 @@
 # Chipalooza Analog Project (ihp-sg13cmos5l)
 
+(c) 2026 Tim Edwards and Simon Dorrer
+
+> [!IMPORTANT]
+> This repository requires the [IIC-OSIC-TOOLS](https://github.com/iic-jku/IIC-OSIC-TOOLS) container with tag `2026.08` or later.
+
 <p align="center">
   <a href="render/img/chipalooza_analog_project_white.png">
     <img src="render/img/chipalooza_analog_project_white.png" alt="Render of the ihp-sg13cmos5l chipalooza_analog_project `tiny` layout (200um x 200um)" width=70%>
@@ -330,4 +335,6 @@ The sub-macros have no such target: the box is only needed by the cell the chip 
 
 ## License
 
-Licensed under the **Solderpad Hardware License v2.1** (`Apache-2.0 WITH SHL-2.1`), see [`LICENSE`](LICENSE).
+Copyright 2026 Tim Edwards and Simon Dorrer.
+
+Licensed under the **Solderpad Hardware License v2.1** (`Apache-2.0 WITH SHL-2.1`), see [`LICENSE`](LICENSE). Source files carry an `SPDX-FileCopyrightText` header; layout data, netlists, renders and generated reports cannot carry one and are covered by this notice.

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# SPDX-FileCopyrightText: 2026 The Chipalooza Contributors
+# SPDX-FileCopyrightText: 2026 Tim Edwards and Simon Dorrer
 # SPDX-License-Identifier: Apache-2.0 WITH SHL-2.1
 # Author: Simon Dorrer
 # Created: 06.05.2026
