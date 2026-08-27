@@ -6,6 +6,9 @@
 > This repository requires the [IIC-OSIC-TOOLS](https://github.com/iic-jku/IIC-OSIC-TOOLS) container with tag `2026.08` or later.
 
 > [!TIP]
+> If you want to use `nix-shell` instead of the container, have a look here: [heichips26-template](https://github.com/HeiChips/heichips26-template).
+
+> [!TIP]
 > New to this flow? Start with the [**ihp-sg13cmos5l AMS chip design tutorial**](https://iic-jku.github.io/ihp-sg13cmos5l-ams-chip-template/index.html). This project follows the same analog flow and directory conventions, so the tutorial applies here as well.
 
 <p align="center">
