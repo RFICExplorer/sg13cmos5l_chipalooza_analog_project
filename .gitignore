@@ -21,3 +21,7 @@ sim_build/
 /macros/inverter/verification/cace/templates/simulations
 /macros/inverter/schematic/xschem/simulations
 /macros/inverter/testbenches/xschem/simulations
+/macros/counter/schematic/xschem/simulations
+/macros/counter/testbenches/xschem/simulations
+/macros/counter/flow/final
+/macros/counter/fpga/*/build/
