@@ -164,11 +164,11 @@ Start your top-level layout from one of the GDS templates in `floorplan/`. They 
 
 - **Signal pins** on Metal3 (west edge): the standard chip interface (`clk`, `ena`, `rst_n`, `ui_in[7:0]`, `uo_out[7:0]`, `uio_*[7:0]`) that connects your project to the eFPGA.
 - **Analog pins** (`analog_0` … `analog_2`) on Metal2 (south edge) — only in the `*_analog` variants. Declare how many you use in [`submission.yaml`](submission.yaml) (`analog-pins:`), and see the warning above about which slot sizes may carry them.
-- **Power straps** on Metal4, running **vertically all the way from bottom to top**: `VPWR`, `VGND`, and optionally `VAPWR` (analog supply). These vertical straps are required for the power-grid integration. Do not shorten, move, or rename them.
+- **Power straps** on Metal4, running **vertically all the way from bottom to top**: `VPWR`, `VGND`, and optionally `VAPWR` (analog supply). Keeping them as drawn is the safe default, because they line up with the chip power grid straight away. There is no hard requirement to do so — as a macro, the P&R tools can usually drop the power grid around your project as needed — but if you shorten, move or rename them, say so in [`submission.yaml`](submission.yaml) so the chip integration can take it into account.
 - **PR boundary** on layer 189 (`prBoundary`), the box the chip flow derives the macro bounding box from, see [PR Boundary Check](#pr-boundary-check).
 
-> [!IMPORTANT]
-> `TopMetal1` must remain **empty** in your macro. This is required for the chip integration and checked by the precheck.
+> [!TIP]
+> There is no specific power-supply requirement for your project, and `TopMetal1` may be used. Leaving the top metals free makes the project easier to fold into a larger SoC later, and as a macro the P&R tools can usually drop the power grid around it as needed.
 
 
 ## Layout Sources and the Exported Tapeout GDS
