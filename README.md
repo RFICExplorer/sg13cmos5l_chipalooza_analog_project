@@ -19,9 +19,9 @@
   <em>Render of the ihp-sg13cmos5l sg13cmos5l_chipalooza_analog_project `tiny` layout (200um x 200um).</em>
 </p>
 
-This is the analog-on-top example project for Chipalooza 2026: the top level `sg13cmos5l_chipalooza_analog_project` is drawn **by hand** in KLayout, based on one of the floorplan templates in `floorplan/`. It uses a **recursive macro structure**: the top level embeds the [`inverter`](macros/inverter/README.md) sub-macro, which shows the complete analog design flow (schematic → simulation → layout → DRC/LVS/PEX → post-layout simulation → characterization).
+This is the analog-on-top example project for Chipalooza 2026: the top level `sg13cmos5l_chipalooza_analog_project` is drawn **by hand** in KLayout, based on one of the floorplan templates in `floorplan/`. It uses a **recursive macro structure**: the top level embeds the [`inverter`](macros/inverter/README.md) sub-macro, which shows the complete analog design flow (schematic → simulation → layout → DRC/LVS/PEX → post-layout simulation → characterization). For **mixed-signal (AMS)** submissions the digital [`counter`](macros/counter/README.md) sub-macro is shipped alongside it, which shows the complete digital flow (RTL → lint → RTL simulation → FPGA → LibreLane hardening → PEX → gate-level and mixed-signal simulation).
 
-The whole flow runs inside the [IIC-OSIC-TOOLS](https://github.com/iic-jku/IIC-OSIC-TOOLS) container, which ships every tool it needs: Xschem, ngspice, Magic, Netgen, KLayout, CACE, and the `sak-*` helper scripts.
+The whole flow runs inside the [IIC-OSIC-TOOLS](https://github.com/iic-jku/IIC-OSIC-TOOLS) container, which ships every tool it needs: Xschem, ngspice, Magic, Netgen, KLayout, CACE, LibreLane, Verilator, Icarus Verilog, cocotb, Yosys, and the `sak-*` helper scripts.
 
 > [!IMPORTANT]
 > You must rename `sg13cmos5l_chipalooza_analog_project` to a unique name and fill in [`submission.yaml`](submission.yaml) in the repository root before you submit. `top-cell` there has to match `TOP` in the [`Makefile`](Makefile).
@@ -88,6 +88,7 @@ Then search and replace the remaining occurrences inside those files — Xschem 
 │  ├─ sg13cmos5l_chipalooza_analog_project.klay.gds     # KLayout editing source (live PCells + library references)
 │  └─ sg13cmos5l_chipalooza_analog_project.klay.klib    # library binding of the .klay.gds to macros/inverter/layout/inverter.gds
 ├─ 📁 macros/
+│  ├─ 📁 counter/                            # digital example sub-macro for AMS designs (own Makefile & README)
 │  └─ 📁 inverter/                           # analog example sub-macro (own Makefile & README)
 ├─ 📁 netlist/
 │  ├─ 📁 layout/
@@ -137,12 +138,24 @@ Then search and replace the remaining occurrences inside those files — Xschem 
 
 ## Recursive Macro Structure
 
-This project embeds the `inverter` sub-macro in `macros/inverter/`, and each level has its own Makefile with the same targets:
+This project embeds two sub-macros in `macros/`, and each level has its own Makefile with the same targets:
 
 - **Top level (`sg13cmos5l_chipalooza_analog_project`)** — the hand-drawn submission macro. Its layout instantiates the `inverter` cells. Its Makefile verifies and builds the **top cell only** (`CELL` defaults to `sg13cmos5l_chipalooza_analog_project`).
-- **Sub-macro (`macros/inverter/`)** — the complete flow reference for the unit `inverter` cell (`TOP = inverter`), including sizing notebooks and CACE characterization.
+- **Analog sub-macro ([`macros/inverter/`](macros/inverter/README.md))** — the complete flow reference for the unit `inverter` cell (`TOP = inverter`), including sizing notebooks and CACE characterization.
+- **Digital sub-macro ([`macros/counter/`](macros/counter/README.md))** — the digital counterpart for **mixed-signal (AMS)** designs (`TOP = counter_top`). Its RTL is linted (Verilator), simulated (Icarus Verilog and cocotb), emulated on an FPGA and hardened into a placeable macro with LibreLane, which runs the Magic and KLayout DRC and the Netgen LVS as part of the flow. [`generate-xspice`](macros/counter/README.md#generate-xspice-file) turns the hardened netlist into an XSPICE model, so the digital block can be simulated together with analog circuitry in an Xschem testbench.
 
-**Build order matters**: if you modify the inverter, run its own flow first (`make -C macros/inverter all`, or equivalently `make build-inverter` from here), then rebuild the top level. The top-level `make all` does this automatically by running `build-macros` before verifying and building the top cell. You can also remove the sub-macro entirely and draw everything flat in the top-level layout (not recommended).
+Every macro follows the same principle, and the simulations always run last, so they use the artifacts the same invocation has just produced:
+
+| Makefile | `all` flow |
+| --- | --- |
+| [`macros/counter/`](macros/counter/) (digital) | lint → build (FPGA and LibreLane, including the XSPICE model) → extract (PEX of the hardened GDS) → simulate. DRC and LVS run inside the LibreLane flow. |
+| [`macros/inverter/`](macros/inverter/) (analog) | verify (DRC, LVS, PEX) → build (LEF, LIB, Verilog stub, GDS, render) → simulate |
+| top level | build macros → verify (DRC, LVS, PEX) → build (boundary check, LEF, LIB, Verilog stub, GDS, render) → simulate |
+
+**Build order matters**: if you modify a sub-macro, run its own flow first (`make -C macros/inverter all` or `make -C macros/counter all`, or equivalently `make build-inverter` / `make build-counter` from here), then rebuild the top level. The top-level `make all` does this automatically by running `build-macros` before verifying and building the top cell. You can also remove the sub-macros entirely and draw everything flat in the top-level layout (not recommended).
+
+> [!TIP]
+> The example top level shipped here is **analog only**: it instantiates the `inverter` and leaves the `counter` unused, so nothing but `build-macros` touches it. To go mixed-signal, build the digital macro once with `make build-counter`, add its hardened GDS `macros/counter/final/gds/counter_top.gds` as a second library entry in [`layout/sg13cmos5l_chipalooza_analog_project.klay.klib`](layout/sg13cmos5l_chipalooza_analog_project.klay.klib) next to the `inverter` binding, place the `counter_top` cell in the top-level layout and re-export the tapeout GDS. `counter_top.sym` is already visible in a top-level Xschem session, see [Xschem Configuration](#xschem-configuration).
 
 
 ## Floorplan Templates
@@ -191,6 +204,8 @@ Xschem reads exactly one `xschemrc` at start-up, and that file decides which sym
 | [`macros/inverter/schematic/xschem/xschemrc`](macros/inverter/schematic/xschem/xschemrc) | inverter schematics |
 | [`macros/inverter/testbenches/xschem/xschemrc`](macros/inverter/testbenches/xschem/xschemrc) | inverter testbenches |
 | [`macros/inverter/verification/cace/templates/xschemrc`](macros/inverter/verification/cace/templates/xschemrc) | CACE testbench templates |
+| [`macros/counter/schematic/xschem/xschemrc`](macros/counter/schematic/xschem/xschemrc) | counter schematics |
+| [`macros/counter/testbenches/xschem/xschemrc`](macros/counter/testbenches/xschem/xschemrc) | counter testbenches |
 
 ### What Every File Does
 
@@ -210,15 +225,16 @@ The top level pulls in everything below it:
 ```text
 testbenches/xschem/xschemrc
 └─ source schematic/xschem/xschemrc
-   └─ source macros/inverter/schematic/xschem/xschemrc
+   ├─ source macros/inverter/schematic/xschem/xschemrc
+   └─ source macros/counter/schematic/xschem/xschemrc
 
 macros/inverter/verification/cace/templates/xschemrc
 └─ source macros/inverter/schematic/xschem/xschemrc
 ```
 
-Each schematic folder puts itself and its sibling testbenches folder on the library path, and each testbenches folder does the reverse. The top level therefore sees all four schematic and testbench folders, which is what lets `sg13cmos5l_chipalooza_analog_project.sch` instantiate `inverter.sym`, and what lets you open a macro testbench from a top-level session. The macro files do not source the top level, so the macro can be opened and simulated on its own.
+Each schematic folder puts itself and its sibling testbenches folder on the library path, and each testbenches folder does the reverse. The top level therefore sees all six schematic and testbench folders, which is what lets `sg13cmos5l_chipalooza_analog_project.sch` instantiate `inverter.sym` and `counter_top.sym`, and what lets you open a macro testbench from a top-level session. The macro files do not source each other or the top level, so a macro can be opened and simulated on its own.
 
-Add a new sub-macro to the top level by sourcing its `schematic/xschem/xschemrc` from [`schematic/xschem/xschemrc`](schematic/xschem/xschemrc), next to the `inverter` line.
+Add a further sub-macro to the top level by sourcing its `schematic/xschem/xschemrc` from [`schematic/xschem/xschemrc`](schematic/xschem/xschemrc), next to the `inverter` and `counter` lines.
 
 ### Where Netlists and Simulation Output Go
 
@@ -240,7 +256,7 @@ All `simulations/` folders are generated and git-ignored.
 ### Which File Is Used
 
 - The Makefile targets always name one explicitly with `--rcfile`, so a target behaves the same from any working directory.
-- Starting Xschem from within one of the five folders picks up that folder's file, which is the normal interactive case. `make open` does the same, because it starts Xschem in the file's own directory.
+- Starting Xschem from within one of the seven folders picks up that folder's file, which is the normal interactive case. `make open` does the same, because it starts Xschem in the file's own directory.
 - Started from anywhere else, Xschem falls back to `~/.xschem/xschemrc` and sees neither the project symbols nor the pinned `netlist_dir`. Pass the file explicitly then, for example `xschem --rcfile schematic/xschem/xschemrc <file>`.
 
 
@@ -279,7 +295,8 @@ make magic-verify-all                    # Magic DRC + LVS + PEX of the top cell
 make check-boundary                      # PR boundary box check of the top cell layout
 make build-top                           # boundary check, LEF, LIB, Verilog stub, final GDS, render
 make build-inverter                      # run the inverter sub-macro's full flow (make -C macros/inverter all)
-make build-macros                        # verify, build and simulate all sub-macros (currently: inverter)
+make build-counter                       # run the counter sub-macro's full flow (make -C macros/counter all)
+make build-macros                        # verify, build and simulate all sub-macros (counter and inverter)
 make sim-all                             # run all top-level testbenches
 make sim-xschem                          # top-level transient (default: <CELL>_tb_tran, needs magic-pex first)
 make sim-xschem TB=<testbenchname>       # run another testbench
@@ -288,11 +305,14 @@ make sim-view-xschem SCRIPT=<scriptname> # run another plotting script
 make all                                 # build-macros + verify + build + simulate
 make clean                               # delete the top level's generated files (final, netlist, render, reports, simulations)
 make clean-inverter                      # run make clean in the inverter sub-macro
-make clean-macros                        # run make clean in all sub-macros (currently: inverter)
+make clean-counter                       # run make clean in the counter sub-macro
+make clean-macros                        # run make clean in all sub-macros (counter and inverter)
 make clean-all                           # clean-macros + clean
 ```
 
 The per-step targets behind these are the same as in the sub-macro and all take `CELL=<cellname>`: `klayout-drc`, `klayout-lvs-netlist`, `klayout-lvs`, `klayout-pex`, `klayout-verify`, `magic-drc`, `magic-lvs-netlist`, `magic-lvs`, `magic-pex`, `magic-verify`, `symbol-pex`, and the build steps `lef`, `lib`, `verilog`, `copy-gds`, `render-gds`. Run `make help` for the full list.
+
+`build-counter` and `clean-counter` only descend into the digital macro. Its own targets — linting, the RTL and gate-level simulations, the FPGA build, the LibreLane flow and the XSPICE model — are documented in [`macros/counter/README.md`](macros/counter/README.md) and are run from that folder.
 
 
 ### Open the Design Files
@@ -326,8 +346,8 @@ The sub-macros have no such target: the box is only needed by the cell the chip 
 
 ### Differences to the Sub-Macro
 
-- `sim-all` runs only the top-level testbenches (currently `sg13cmos5l_chipalooza_analog_project_tb_tran`). The testbench simulates the schematic by default and includes the extracted PEX netlist by swapping the DUT to the `_pex` symbol for a post-layout run. That symbol, `schematic/xschem/<CELL>_pex.sym`, is built by the `symbol-pex` target, which `klayout-pex` and `magic-pex` run automatically before every extraction. The inverter's own testbenches and CACE characterization live in `macros/inverter/`, and there is no `sim-cace` at this level.
-- `klayout-verify-all`/`magic-verify-all` verify the top cell only — the inverter cells are covered by `build-macros`/`build-inverter` (or run the sub-macro's own `make`).
+- `sim-all` runs only the top-level testbenches (currently `sg13cmos5l_chipalooza_analog_project_tb_tran`). The testbench simulates the schematic by default and includes the extracted PEX netlist by swapping the DUT to the `_pex` symbol for a post-layout run. That symbol, `schematic/xschem/<CELL>_pex.sym`, is built by the `symbol-pex` target, which `klayout-pex` and `magic-pex` run automatically before every extraction. The inverter's own testbenches and CACE characterization live in `macros/inverter/`, the counter's gate-level and mixed-signal testbenches in `macros/counter/`, and there is no `sim-cace` at this level.
+- `klayout-verify-all`/`magic-verify-all` verify the top cell only — the inverter cells are covered by `build-macros`/`build-inverter` (or run the sub-macro's own `make`), and the counter is signed off inside its LibreLane flow by `build-macros`/`build-counter`.
 - `build-top` additionally runs `check-boundary` first, see above.
 - `make all` first runs `build-macros`, so the sub-macros are verified, built and simulated before the top cell.
 - `clean` deletes only the top level's generated files (`final/`, `netlist/`, `render/img/`, the DRC/LVS reports, and the simulation outputs). `clean-macros` runs `make clean` in every sub-macro, and `clean-all` combines both, mirroring `build-macros`/`all`.
