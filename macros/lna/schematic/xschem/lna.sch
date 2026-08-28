@@ -14,10 +14,11 @@ N 820 -850 940 -850 {lab=Vout}
 
 N 820 -790 820 -730 {lab=cascode_node}
 
-N 700 -700 780 -700 {lab=Vin}
+N 700 -700 710 -700 {lab=Vin}
+N 770 -700 780 -700 {lab=gate_in}
 N 700 -820 780 -820 {lab=Vbias}
 
-N 820 -670 820 -620 {lab=GND}
+N 820 -610 820 -580 {lab=GND}
 
 N 820 -700 880 -700 {lab=GND}
 N 820 -820 880 -820 {lab=GND}
@@ -26,12 +27,28 @@ C {devices/iopin.sym} 820 -980 3 0 {name=p1 lab=VDD}
 C {devices/ipin.sym} 700 -700 0 0 {name=p2 lab=Vin}
 C {devices/ipin.sym} 700 -820 0 0 {name=p3 lab=Vbias}
 C {devices/iopin.sym} 940 -850 0 0 {name=p4 lab=Vout}
-C {devices/iopin.sym} 820 -620 1 0 {name=p5 lab=GND}
+C {devices/iopin.sym} 820 -580 1 0 {name=p5 lab=GND}
 
 C {devices/ind.sym} 820 -920 0 0 {
 name=Lload
 m=1
 value=5n
+footprint=1206
+device=inductor
+}
+
+C {devices/ind.sym} 740 -700 1 0 {
+name=Lg
+m=1
+value=12.1n
+footprint=1206
+device=inductor
+}
+
+C {devices/ind.sym} 820 -640 0 0 {
+name=Ls
+m=1
+value=2.00n
 footprint=1206
 device=inductor
 }
