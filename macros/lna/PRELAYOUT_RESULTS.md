@@ -30,7 +30,22 @@ TT, SS, FF, SF, and FS were evaluated at 27 C.
 
 - In-band gain: approximately 16.64-20.40 dB
 - Minimum in-band K: approximately 1.49
+## Temperature Summary
+
+TT was evaluated at -40 C, 27 C, and 125 C.
+
+- In-band gain: approximately 17.67-19.36 dB
+- Minimum in-band K: approximately 1.52
+- K remains above unity and Delta magnitude remains below unity at all evaluated temperatures.
+- Worst S11: approximately -9.76 dB
+- Worst S22: approximately -5.51 dB
+- Matching does not remain below -10 dB at every temperature and band edge.
+
+## Wideband Stability Summary
+
 - Wideband minimum K: 1.679 at 2.570 GHz over 100 MHz-10 GHz
+## Nominal Linearity Summary
+
 - Preliminary input P1dB at 2.425 GHz: approximately -24.69 dBm
 - Preliminary output P1dB at 2.425 GHz: approximately -6.51 dBm
 - Preliminary two-tone IIP3 at 2.420 and 2.430 GHz: approximately -11.84 dBm per tone
@@ -57,9 +72,14 @@ Run from `macros/lna` inside IIC-OSIC-TOOLS:
 - `make sim-xschem TB=lna_tb_sp`
 - `make sim-xschem TB=lna_tb_sp_package`
 - `make sim-xschem TB=lna_tb_noise_package`
+- `make sim-xschem TB=lna_tb_sp_package_corner`
+- `make sim-xschem TB=lna_tb_sp_package_temperature`
+- `make sim-xschem TB=lna_tb_sp_package_wide_stability`
+- `make sim-xschem TB=lna_tb_p1db_package`
+- `make sim-xschem TB=lna_tb_iip3_package`
 - `python3 testbenches/xschem/plot_simulations/plot_lna_rf.py`
 - `python3 testbenches/xschem/plot_simulations/plot_lna_linearity.py`
 
 ## Limitations
 
-The matching components are ideal. Pad and bond-wire values are preliminary assumptions. Temperature, statistical mismatch, linearity, compression, layout, extraction, DRC, LVS, and post-layout verification remain future work. Unconditional stability is established from 100 MHz to 10 GHz at nominal TT and 27 C. This must be rechecked after layout and parasitic extraction.
+The matching components are ideal, and the pad and bond-wire values are preliminary assumptions. Process corners were evaluated at 27 C, while temperature and linearity were evaluated at nominal TT; a combined PVT and linearity-corner campaign has not yet been performed. Statistical mismatch, realistic passive-device models, layout, extraction, DRC, LVS, and post-layout verification remain future work. Unconditional stability is established from 100 MHz to 10 GHz at nominal TT and 27 C and must be rechecked after layout and parasitic extraction.
