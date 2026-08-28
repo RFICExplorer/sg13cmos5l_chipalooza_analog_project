@@ -30,6 +30,7 @@ TT, SS, FF, SF, and FS were evaluated at 27 C.
 
 - In-band gain: approximately 16.64-20.40 dB
 - Minimum in-band K: approximately 1.49
+- Wideband minimum K: 1.679 at 2.570 GHz over 100 MHz-10 GHz
 - Delta magnitude remains below unity at all evaluated corners.
 - Worst S11: approximately -8.82 dB
 - Worst S22: approximately -5.35 dB
@@ -53,4 +54,4 @@ Run from `macros/lna` inside IIC-OSIC-TOOLS:
 
 ## Limitations
 
-The matching components are ideal. Pad and bond-wire values are preliminary assumptions. Temperature, statistical mismatch, linearity, compression, layout, extraction, DRC, LVS, and post-layout verification remain future work. Stability has been established within 2.40-2.45 GHz, not across the complete simulated frequency range.
+The matching components are ideal. Pad and bond-wire values are preliminary assumptions. Temperature, statistical mismatch, linearity, compression, layout, extraction, DRC, LVS, and post-layout verification remain future work. Unconditional stability is established from 100 MHz to 10 GHz at nominal TT and 27 C. This must be rechecked after layout and parasitic extraction.
