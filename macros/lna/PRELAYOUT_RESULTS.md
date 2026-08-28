@@ -31,6 +31,9 @@ TT, SS, FF, SF, and FS were evaluated at 27 C.
 - In-band gain: approximately 16.64-20.40 dB
 - Minimum in-band K: approximately 1.49
 - Wideband minimum K: 1.679 at 2.570 GHz over 100 MHz-10 GHz
+- Preliminary input P1dB at 2.425 GHz: approximately -24.69 dBm
+- Preliminary output P1dB at 2.425 GHz: approximately -6.51 dBm
+- The fundamental-power result agrees with the total-RMS result within 0.024 dB.
 - Delta magnitude remains below unity at all evaluated corners.
 - Worst S11: approximately -8.82 dB
 - Worst S22: approximately -5.35 dB
