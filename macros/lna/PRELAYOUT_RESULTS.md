@@ -33,6 +33,9 @@ TT, SS, FF, SF, and FS were evaluated at 27 C.
 - Wideband minimum K: 1.679 at 2.570 GHz over 100 MHz-10 GHz
 - Preliminary input P1dB at 2.425 GHz: approximately -24.69 dBm
 - Preliminary output P1dB at 2.425 GHz: approximately -6.51 dBm
+- Preliminary two-tone IIP3 at 2.420 and 2.430 GHz: approximately -11.84 dBm per tone
+- Preliminary OIP3: approximately +7.29 dBm
+- Low-power fundamental slopes are approximately 0.998-0.999 dB/dB, while IM3 slopes are approximately 3.11-3.19 dB/dB.
 - The fundamental-power result agrees with the total-RMS result within 0.024 dB.
 - Delta magnitude remains below unity at all evaluated corners.
 - Worst S11: approximately -8.82 dB
