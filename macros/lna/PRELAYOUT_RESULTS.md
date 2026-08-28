@@ -47,6 +47,7 @@ TT, SS, FF, SF, and FS were evaluated at 27 C.
 - [Nominal S-parameters](testbenches/xschem/plot_simulations/figures/lna_package_sparameters.png)
 - [Process corners](testbenches/xschem/plot_simulations/figures/lna_package_process_corners.png)
 - [Noise figure](testbenches/xschem/plot_simulations/figures/lna_package_noise_figure.png)
+- [P1dB and IIP3](testbenches/xschem/plot_simulations/figures/lna_package_linearity.png)
 
 ## Reproduction
 
@@ -57,6 +58,7 @@ Run from `macros/lna` inside IIC-OSIC-TOOLS:
 - `make sim-xschem TB=lna_tb_sp_package`
 - `make sim-xschem TB=lna_tb_noise_package`
 - `python3 testbenches/xschem/plot_simulations/plot_lna_rf.py`
+- `python3 testbenches/xschem/plot_simulations/plot_lna_linearity.py`
 
 ## Limitations
 
