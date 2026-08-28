@@ -1,4 +1,4 @@
-﻿# ihp-sg13cmos5l Inverter
+# IHP SG13CMOS5L 2.4 GHz Cascode LNA
 
 <p align="center">
   <a href="render/img/lna_white.png">
