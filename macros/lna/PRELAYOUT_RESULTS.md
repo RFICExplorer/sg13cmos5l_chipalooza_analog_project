@@ -73,7 +73,7 @@ Run from `macros/lna` inside IIC-OSIC-TOOLS:
 - `make sim-xschem TB=lna_tb_sp_package`
 - `make sim-xschem TB=lna_tb_noise_package`
 - `make sim-rf-corners` — regenerates all five MOS corner datasets; see [RF_CORNERS.md](RF_CORNERS.md) for requirements, logs and output-overwrite behavior.
-- `make sim-xschem TB=lna_tb_sp_package_temperature`
+- `make sim-rf-temperature` — regenerates all three TT temperature datasets; see [RF_TEMPERATURE.md](RF_TEMPERATURE.md).
 - `make sim-xschem TB=lna_tb_sp_package_wide_stability`
 - `make sim-xschem TB=lna_tb_p1db_package`
 - `make sim-xschem TB=lna_tb_iip3_package`

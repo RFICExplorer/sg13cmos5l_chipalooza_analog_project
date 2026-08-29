@@ -115,6 +115,10 @@ sim-rf-corners: ## Run five package-level MOS corners
 	bash scripts/run_rf_corners.sh
 .PHONY: sim-rf-corners
 
+sim-rf-temperature: ## Run TT package-level checks at -40, 27 and 125 C
+	bash scripts/run_rf_temperature.sh
+.PHONY: sim-rf-temperature
+
 sim-view-xschem: ## Plot Xschem simulation results (usage: make sim-view-xschem [SCRIPT=<scriptname>])
 	SHOW_PLOTS=1 python3 $(SIM_PLOT_DIR)/$(SCRIPT).py
 .PHONY: sim-view-xschem
