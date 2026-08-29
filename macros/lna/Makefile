@@ -111,6 +111,10 @@ sim-xschem: ## Run TB simulation with Xschem in batch mode (usage: make sim-xsch
 	cd $(XSCHEM_TB_DIR)/simulations && ngspice -b $(TB).spice
 .PHONY: sim-xschem
 
+sim-rf-corners: ## Run five package-level MOS corners
+	bash scripts/run_rf_corners.sh
+.PHONY: sim-rf-corners
+
 sim-view-xschem: ## Plot Xschem simulation results (usage: make sim-view-xschem [SCRIPT=<scriptname>])
 	SHOW_PLOTS=1 python3 $(SIM_PLOT_DIR)/$(SCRIPT).py
 .PHONY: sim-view-xschem
