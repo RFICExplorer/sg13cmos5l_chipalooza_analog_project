@@ -14,18 +14,23 @@ FIGURES = ROOT / "figures"
 FIGURES.mkdir(parents=True, exist_ok=True)
 
 p1 = np.genfromtxt(DATA / "lna_p1db_package.csv", delimiter=",", names=True)
+p1_refined = np.genfromtxt(
+    DATA / "lna_p1db_package_refined.csv", delimiter=",", names=True
+)
 iip3 = np.genfromtxt(DATA / "lna_iip3_package_low_power.csv", delimiter=",", names=True)
 
-input_p1db = -24.6884
-output_p1db = -6.5108
-small_signal_gain = 19.1540
-input_iip3 = -11.8412
-output_iip3 = 7.2880
+small_signal_gain = np.mean(p1["gain_fund_db"][:3])
+input_p1db = np.interp(
+    1.0, p1_refined["compression_db"], p1_refined["pin_dbm"]
+)
+output_p1db = np.interp(
+    input_p1db, p1_refined["pin_dbm"], p1_refined["pout_fund_dbm"]
+)
 
 fig, axes = plt.subplots(1, 2, figsize=(13.2, 5.4))
 
 ax = axes[0]
-ax.plot(p1["pin_dbm"], p1["pout_dbm"], "o-", lw=2, ms=4, label="Simulated output")
+ax.plot(p1["pin_dbm"], p1["pout_fund_dbm"], "o-", lw=2, ms=4, label="Simulated output")
 ax.plot(p1["pin_dbm"], p1["pin_dbm"] + small_signal_gain, "--", lw=1.8, label="Linear extrapolation")
 ax.scatter([input_p1db], [output_p1db], s=70, marker="*", zorder=5, label="P1dB")
 ax.axvline(input_p1db, color="0.5", ls=":", lw=1)
@@ -47,6 +52,8 @@ fund = iip3["fund_avg_dbm"]
 im3 = iip3["im3_avg_dbm"]
 fund_fit = np.array([1.0, np.mean(fund - pin)])
 im3_fit = np.array([3.0, np.mean(im3 - 3.0 * pin)])
+input_iip3 = (fund_fit[1] - im3_fit[1]) / 2.0
+output_iip3 = np.polyval(fund_fit, input_iip3)
 x = np.linspace(pin.min() - 1, input_iip3 + 2, 200)
 ax.plot(pin, fund, "o", ms=6, label="Fundamental data")
 ax.plot(pin, im3, "s", ms=6, label="IM3 data")

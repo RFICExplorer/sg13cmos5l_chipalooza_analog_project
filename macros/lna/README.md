@@ -40,8 +40,8 @@ These values are preliminary assumptions and must be replaced or refined using t
 
 Additional preliminary results:
 
-- Input P1dB at 2.425 GHz: approximately -24.69 dBm
-- Output P1dB at 2.425 GHz: approximately -6.51 dBm
+- Input P1dB at 2.425 GHz: approximately -24.66 dBm
+- Output P1dB at 2.425 GHz: approximately -6.50 dBm
 - Two-tone IIP3 at 2.420 and 2.430 GHz: approximately -11.84 dBm per tone
 - OIP3: approximately +7.29 dBm
 - Wideband minimum K: 1.679 from 100 MHz to 10 GHz at nominal TT and 27 C
@@ -71,6 +71,8 @@ See [PRELAYOUT_RESULTS.md](PRELAYOUT_RESULTS.md) for the detailed summary, repro
 - `testbenches/xschem/plot_simulations/figures/`: review plots
 - `testbenches/xschem/plot_simulations/plot_lna_rf.py`: RF and noise plotting script
 - `testbenches/xschem/plot_simulations/plot_lna_linearity.py`: linearity plotting script
+- `scripts/run_p1db_sweep.sh`: reproducible package-level P1dB sweep
+- `scripts/run_iip3_sweep.sh`: reproducible package-level two-tone IIP3 sweep
 
 ## Current Limitations
 

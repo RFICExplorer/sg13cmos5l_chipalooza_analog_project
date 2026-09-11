@@ -46,8 +46,8 @@ TT was evaluated at -40 C, 27 C, and 125 C.
 - Wideband minimum K: 1.679 at 2.570 GHz over 100 MHz-10 GHz
 ## Nominal Linearity Summary
 
-- Preliminary input P1dB at 2.425 GHz: approximately -24.69 dBm
-- Preliminary output P1dB at 2.425 GHz: approximately -6.51 dBm
+- Preliminary input P1dB at 2.425 GHz: approximately -24.66 dBm
+- Preliminary output P1dB at 2.425 GHz: approximately -6.50 dBm
 - Preliminary two-tone IIP3 at 2.420 and 2.430 GHz: approximately -11.84 dBm per tone
 - Preliminary OIP3: approximately +7.29 dBm
 - Low-power fundamental slopes are approximately 0.998-0.999 dB/dB, while IM3 slopes are approximately 3.11-3.19 dB/dB.
@@ -75,10 +75,12 @@ Run from `macros/lna` inside IIC-OSIC-TOOLS:
 - `make sim-rf-corners` — regenerates all five MOS corner datasets; see [RF_CORNERS.md](RF_CORNERS.md) for requirements, logs and output-overwrite behavior.
 - `make sim-rf-temperature` — regenerates all three TT temperature datasets; see [RF_TEMPERATURE.md](RF_TEMPERATURE.md).
 - `make sim-xschem TB=lna_tb_sp_package_wide_stability`
-- `make sim-xschem TB=lna_tb_p1db_package`
-- `make sim-xschem TB=lna_tb_iip3_package`
+- `bash scripts/run_p1db_sweep.sh`
+- `bash scripts/run_iip3_sweep.sh`
 - `python3 testbenches/xschem/plot_simulations/plot_lna_rf.py`
 - `python3 testbenches/xschem/plot_simulations/plot_lna_linearity.py`
+
+The P1dB and IIP3 sweep scripts retain each run in a uniquely named directory under `testbenches/xschem/simulations/`. Review the generated CSV files and copy the approved results into `testbenches/xschem/plot_simulations/data/` before regenerating the linearity figure.
 
 ## Limitations
 
