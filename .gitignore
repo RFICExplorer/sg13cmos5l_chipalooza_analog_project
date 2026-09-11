@@ -25,3 +25,6 @@ sim_build/
 /macros/counter/testbenches/xschem/simulations
 /macros/counter/flow/final
 /macros/counter/fpga/*/build/
+/macros/lna/testbenches/xschem/simulations/
+/macros/lna/scripts/sizing/data/*.mat
+/synopsys_custom/
