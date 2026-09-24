@@ -1,0 +1,7 @@
+case,q_applied,loss_location,Rg_ohm,Rload_ohm,Rs_ohm,S11_2p425_db,S21_2p425_db,S22_2p425_db,K_2p425,result_class
+ideal_reference,ideal,none,0,0,0,-11.242968,16.185130,-9.626778,2.526663,reference_from_tt_27_pvt
+q15_gate_only,15,12.1nH_gate,12.291,0,0,-10.9660,15.9283,-14.9306,2.87686,exploratory
+q15_load_only,15,5nH_load,0,5.079,0,-9.76116,12.3673,-6.87506,5.00036,exploratory
+q15_source_only,15,2nH_source,0,0,2.031,-11.5880,16.3391,-15.8301,2.55849,exploratory
+q15_all,15,all,12.291,5.079,2.031,-8.87420,11.5047,-6.81636,5.59059,exploratory
+q10_all,10,all,18.436,7.618,3.047,-8.10321,9.58529,-5.32688,7.30106,exploratory
