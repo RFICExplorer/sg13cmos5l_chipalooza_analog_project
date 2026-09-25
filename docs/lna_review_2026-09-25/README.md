@@ -36,15 +36,15 @@ The complete LNA physical layout is not yet available. Current physical-integrat
 
 The file `scripts/sizing/figures/lna_circuit.pdf` is a sizing/inverter diagram and must not be presented as the current LNA schematic. The authoritative current circuit source is `schematic/xschem/lna.sch`.
 
-## Information still requested from Tim
+## Open Technical Items Before Final Integration
 
-- Recommended SG13CMOS5L inductor EM procedure and applicable stackup/technology files.
-- Recommended QFN and approximately 3 mm bond-wire electrical model.
-- Required separation beyond the Magic-generated inductor keep-out, if any.
-- Whether part of the RF matching network may be implemented off chip.
-- `ibias` compliance voltage, accuracy, and expected PVT variation.
-- Usable `vbias` voltage range and documented drive capability.
-- Confirmation that the reset-related slot-wrapper revision has been pushed before final integration.
+- Confirm the appropriate SG13CMOS5L inductor EM-analysis flow and applicable stackup/technology files.
+- Establish an electrical model for the QFN package and approximately 3 mm bond wires.
+- Determine whether additional inductor separation is required beyond the Magic-generated keep-out.
+- Determine whether part of the RF matching network may be implemented off chip.
+- Characterize the available `ibias` resources for compliance voltage, accuracy, and expected PVT variation.
+- Confirm the usable `vbias` voltage range and documented drive capability for the intended bias implementation.
+- Verify the final slot-wrapper revision before physical integration.
 
 ## Next objectives
 
